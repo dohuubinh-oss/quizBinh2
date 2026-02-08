@@ -1,65 +1,31 @@
-import Image from "next/image";
+// --- GIẢI THÍCH THAY ĐỔI ---
+// 1. VÌ SAO CẦN THAY ĐỔI:
+//    - Yêu cầu của bạn là muốn nội dung chính của trang có cùng chiều rộng với Navbar và Footer.
+//    - Trước đó, tôi đã gỡ bỏ giới hạn chiều rộng khỏi thẻ <main> trong `layout.tsx`, khiến nội dung trang chủ tràn ra toàn màn hình.
+//
+// 2. GIẢI QUYẾT VẤN ĐỀ GÌ:
+//    - Thay thế thẻ `<main>` không hợp lệ bằng thẻ `<div>`.
+//    - Thêm một `div` bao bọc bên ngoài nội dung của trang chủ. Div này sẽ đóng vai trò là "container" cho trang.
+//    - Áp dụng các class quan trọng vào `div` này:
+//      - `max-w-[1280px] mx-auto`: Giới hạn chiều rộng và căn giữa, đảm bảo nội dung trang chủ thẳng hàng với Navbar và Footer.
+//      - `px-4 sm:px-6 lg:px-8`: Thêm padding ngang để nội dung không dính vào mép màn hình trên các thiết bị khác nhau.
+//      - `py-12`: Thêm padding dọc để tạo khoảng trống với Navbar và Footer.
+//
+// 3. LỢI ÍCH SO VỚI CÁCH CŨ:
+//    - Khắc phục lỗi hiển thị, đưa chiều rộng của nội dung về đúng như yêu cầu.
+//    - Duy trì cấu trúc layout linh hoạt: layout chung (`layout.tsx`) không áp đặt chiều rộng, cho phép các trang đặc biệt có thể có layout toàn màn hình nếu muốn. Chỉ các trang cần giới hạn (như trang chủ) mới tự thêm container.
+//    - Bố cục trang chủ giờ đây hoàn toàn nhất quán với thiết kế chung của ứng dụng.
 
-export default function Home() {
+export default function Page() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+    <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl md:text-6xl">
+        <span className="block">Chào mừng đến với</span>
+        <span className="block text-blue-600">EnglishMaster</span>
+      </h1>
+      <p className="mt-6 text-lg leading-8 text-gray-600 sm:text-xl">
+        Nâng cao kỹ năng tiếng Anh của bạn mỗi ngày thông qua các bài kiểm tra thú vị và đầy thử thách. Bắt đầu hành trình chinh phục ngôn ngữ ngay hôm nay!
+      </p>
     </div>
   );
 }
