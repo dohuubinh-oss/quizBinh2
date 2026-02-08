@@ -28,12 +28,16 @@ const CTA: React.FC = () => {
           
           {/* THAY ĐỔI: Sử dụng component Button */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
-            <Link href="/signup" passHref legacyBehavior>
+            <Link href="/signup">
+              {/* @next-codemod-error This Link previously used the now removed `legacyBehavior` prop, and has a child that might not be an anchor. The codemod bailed out of lifting the child props to the Link. Check that the child component does not render an anchor, and potentially move the props manually to Link. */
+              }
               <Button variant="special" size="large" asChild>
                 <a>Đăng ký miễn phí</a>
               </Button>
             </Link>
-            <Link href="/pricing" passHref legacyBehavior>
+            <Link href="/pricing">
+              {/* @next-codemod-error This Link previously used the now removed `legacyBehavior` prop, and has a child that might not be an anchor. The codemod bailed out of lifting the child props to the Link. Check that the child component does not render an anchor, and potentially move the props manually to Link. */
+              }
               <Button variant="outlineWhite" size="large" asChild>
                 <a>Xem bảng giá</a>
               </Button>
