@@ -2,22 +2,17 @@ import React from 'react';
 import Image from 'next/image';
 import { Star } from 'lucide-react';
 
-// --- GIẢI THÍCH COMPONENT ---
-// Component `ReviewCard` là một "UI Component" dùng chung.
-// - Lý do: Được tách ra từ `Testimonials` để tái sử dụng và làm sạch code. Nó chịu trách nhiệm hiển thị một thẻ đánh giá duy nhất.
-// - Props:
-//   - name: Tên của người đánh giá.
-//   - role: Vai trò/chức danh của người đánh giá.
-//   - quote: Nội dung trích dẫn/đánh giá.
-//   - avatar: URL hình ảnh đại diện của người đánh giá.
-// - Trường hợp sử dụng: Hiển thị các đánh giá của người dùng một cách nhất quán.
-
 interface ReviewCardProps {
   name: string;
   role: string;
   quote: string;
   avatar: string;
 }
+
+// --- GIẢI THÍCH THAY ĐỔI ---
+// Đã sửa lỗi `react/no-unescaped-entities`.
+// - Lý do: Sử dụng ký tự ngoặc kép `"` trực tiếp trong JSX có thể gây ra lỗi hiển thị.
+// - Giải pháp: Thay thế `"` bằng `&quot;` để đảm bảo nó được render một cách an toàn dưới dạng text.
 
 const ReviewCard: React.FC<ReviewCardProps> = ({ name, role, quote, avatar }) => {
   return (
@@ -28,7 +23,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ name, role, quote, avatar }) =>
         ))}
       </div>
       <p className="text-gray-900 text-lg font-medium italic mb-6 flex-1">
-        \"{quote}\"
+        &quot;{quote}&quot;
       </p>
       <div className="flex items-center gap-4">
         <Image src={avatar} alt={name} width={48} height={48} className="size-12 rounded-full object-cover" />

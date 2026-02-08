@@ -1,12 +1,14 @@
 import React from 'react';
 import Link from 'next/link';
+import { Button } from './ui/Button'; // IMPORT: Component Button
 
 // --- GIẢI THÍCH THAY ĐỔI ---
-// FILE NÀY ĐÃ ĐƯỢC TẠO MỚI VÀ TUÂN THỦ CÁC NGUYÊN TẮC:
-// 1. LOẠI BỎ DARK MODE: Class `dark:` đã được xóa.
-// 2. ĐỒNG BỘ MÀU SẮC: Class `bg-primary` và `text-primary` đã được thay thế bằng mã màu [#2b8cee] tương ứng.
-// 3. CHUẨN NEXT.JS: Các thẻ `<button>` điều hướng đã được chuyển đổi thành component `<Link>` của `next/link` để có ngữ nghĩa tốt hơn.
-// 4. XỬ LÝ CLASS TÙY CHỈNH: Class `font-body` và `animate-fade-in` không thuộc Tailwind mặc định đã được loại bỏ để đảm bảo tính nhất quán.
+// FILE NÀY ĐÃ ĐƯỢC CẬP NHẬT ĐỂ TÁI SỬ DỤNG COMPONENT `Button`.
+// 1. TÍNH NHẤT QUÁN: Các thẻ <Link> được tạo kiểu thủ công đã được thay thế bằng component `<Button>`.
+// 2. SỬ DỤNG `asChild`: Prop `asChild` được thêm vào component `<Button>` để nó render dưới dạng một thẻ `<Link>` (con của nó), kết hợp được cả styling của Button và chức năng routing của Next.js Link.
+// 3. MÀU SẮC ĐẶC BIỆT: 
+//    - Đối với nút "Đăng ký", tôi đã sử dụng `variant="special"` vì nó có nền trắng chữ xanh - một kiểu khác với các nút "primary" và "secondary" thông thường.
+//    - Đối với nút "Xem bảng giá", tôi đã thêm một className tùy chỉnh `variant="outlineWhite"` để tạo viền trắng trên nền trong suốt.
 
 const CTA: React.FC = () => {
   return (
@@ -24,14 +26,20 @@ const CTA: React.FC = () => {
             Đăng ký ngay hôm nay để nhận 7 ngày trải nghiệm Full tính năng Premium hoàn toàn miễn phí.
           </p>
           
+          {/* THAY ĐỔI: Sử dụng component Button */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
-            <Link href="/signup" className="flex items-center justify-center h-14 px-10 rounded-full bg-white text-[#2b8cee] text-lg font-bold shadow-lg hover:bg-gray-50 transition-all hover:-translate-y-1 active:scale-95">
-              Đăng ký miễn phí
+            <Link href="/signup" passHref legacyBehavior>
+              <Button variant="special" size="large" asChild>
+                <a>Đăng ký miễn phí</a>
+              </Button>
             </Link>
-            <Link href="/pricing" className="flex items-center justify-center h-14 px-10 rounded-full bg-transparent border-2 border-white text-white text-lg font-bold hover:bg-white/10 transition-all active:scale-95">
-              Xem bảng giá
+            <Link href="/pricing" passHref legacyBehavior>
+              <Button variant="outlineWhite" size="large" asChild>
+                <a>Xem bảng giá</a>
+              </Button>
             </Link>
           </div>
+
         </div>
       </div>
     </section>

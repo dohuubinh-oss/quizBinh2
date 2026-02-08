@@ -1,39 +1,37 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Check } from 'lucide-react';
+import { Check, ArrowRight, LucideProps } from 'lucide-react';
 
-// --- GIẢI THÍCH COMPONENT ---
-// Component `FeatureRow` là một "UI Component" dùng chung.
-// - Lý do: Được tách ra từ `ZigZagFeatures` để tái sử dụng và làm sạch code. Nó chịu trách nhiệm hiển thị một hàng duy nhất gồm hình ảnh và văn bản.
-// - Props:
-//   - direction: 'left' | 'right', quyết định vị trí của hình ảnh.
-//   - imageSrc, imageAlt: thông tin cho ảnh.
-//   - tagIcon, tagName: nội dung cho huy hiệu nhỏ (tag) phía trên tiêu đề.
-//   - title, description: nội dung chính.
-//   - checklist: một mảng các chuỗi để hiển thị danh sách các mục.
-//   - actionLink: một component (ReactNode) để hiển thị một liên kết hoặc nút hành động.
-// - Trường hợp sử dụng: Hiển thị các cặp tính năng (ảnh + chữ) theo layout xen kẽ.
+// --- GIẢI THÍCH THAY ĐỔI LỚN ---
+// FILE NÀY ĐÃ ĐƯỢC CẬP NHẬT ĐỂ TRỞ THÀNH COMPONENT DO DỮ LIỆU ĐIỀU KHIỂN (DATA-DRIVEN).
+// 1. PROPS THÔNG MINH HƠN:
+//    - `tagIconComponent`: Nhận vào một component React (React.ElementType) thay vì một ReactNode đã được render. Điều này cho phép `FeatureRow` tự tạo element với kích thước mong muốn.
+//    - `actionLink`: Nhận vào một object `{ href, text }` thay vì một component Link đã được build sẵn.
+// 2. TỰ RENDER CÁC THÀNH PHẦN PHỨC TẠP:
+//    - Icon: `React.createElement` được sử dụng để render component icon được truyền vào qua `tagIconComponent`.
+//    - Link hành động: Component tự render thẻ `<Link>` của Next.js với đầy đủ style và icon `ArrowRight`, dựa trên dữ liệu từ prop `actionLink`.
+// 3. TĂNG TÍNH ĐÓNG GÓI: Logic hiển thị (cách một icon hay một link trông như thế nào) giờ đây nằm hoàn toàn bên trong `FeatureRow`, giúp `ZigZagFeatures` chỉ cần tập trung vào việc "cung cấp dữ liệu gì".
 
 interface FeatureRowProps {
   direction: 'left' | 'right';
   imageSrc: string;
   imageAlt: string;
-  tagIcon: React.ReactNode;
+  tagIconComponent: React.ElementType<LucideProps>; // THAY ĐỔI: Nhận component
   tagName: string;
   tagBgColor: string;
   tagTextColor: string;
   title: string;
   description: string;
   checklist?: string[];
-  actionLink?: React.ReactNode;
+  actionLink?: { href: string; text: string; }; // THAY ĐỔI: Nhận object
 }
 
 const FeatureRow: React.FC<FeatureRowProps> = ({
   direction,
   imageSrc,
   imageAlt,
-  tagIcon,
+  tagIconComponent,
   tagName,
   tagBgColor,
   tagTextColor,
@@ -66,7 +64,8 @@ const FeatureRow: React.FC<FeatureRowProps> = ({
       {/* Cột nội dung */}
       <div className={`lg:w-1/2 ${contentOrder}`}>
         <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full ${tagBgColor} ${tagTextColor} text-sm font-semibold mb-4`}>
-          {tagIcon}
+          {/* THAY ĐỔI: Tự tạo icon */}
+          {React.createElement(tagIconComponent, { size: 18 })}
           <span>{tagName}</span>
         </div>
         <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">{title}</h2>
@@ -87,7 +86,13 @@ const FeatureRow: React.FC<FeatureRowProps> = ({
           </ul>
         )}
 
-        {actionLink}
+        {/* THAY ĐỔI: Tự render Link */}
+        {actionLink && (
+            <Link href={actionLink.href} className="flex items-center text-[#2b8cee] font-bold hover:underline gap-2 group">
+                <span>{actionLink.text}</span> 
+                <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+            </Link>
+        )}
       </div>
     </div>
   );
