@@ -26,22 +26,14 @@ const CTA: React.FC = () => {
             Đăng ký ngay hôm nay để nhận 7 ngày trải nghiệm Full tính năng Premium hoàn toàn miễn phí.
           </p>
           
-          {/* THAY ĐỔI: Sử dụng component Button */}
+          {/* SỬA LỖI: Đảo ngược Button và Link, sử dụng asChild đúng cách */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
-            <Link href="/signup">
-              {/* @next-codemod-error This Link previously used the now removed `legacyBehavior` prop, and has a child that might not be an anchor. The codemod bailed out of lifting the child props to the Link. Check that the child component does not render an anchor, and potentially move the props manually to Link. */
-              }
-              <Button variant="special" size="large" asChild>
-                <a>Đăng ký miễn phí</a>
-              </Button>
-            </Link>
-            <Link href="/pricing">
-              {/* @next-codemod-error This Link previously used the now removed `legacyBehavior` prop, and has a child that might not be an anchor. The codemod bailed out of lifting the child props to the Link. Check that the child component does not render an anchor, and potentially move the props manually to Link. */
-              }
-              <Button variant="outlineWhite" size="large" asChild>
-                <a>Xem bảng giá</a>
-              </Button>
-            </Link>
+            <Button variant="special" size="large" asChild>
+              <Link href="/signup">Đăng ký miễn phí</Link>
+            </Button>
+            <Button variant="outlineWhite" size="large" asChild>
+              <Link href="/pricing">Xem bảng giá</Link>
+            </Button>
           </div>
 
         </div>
