@@ -1,31 +1,42 @@
-// --- GIẢI THÍCH THAY ĐỔI ---
-// 1. VÌ SAO CẦN THAY ĐỔI:
-//    - Yêu cầu của bạn là muốn nội dung chính của trang có cùng chiều rộng với Navbar và Footer.
-//    - Trước đó, tôi đã gỡ bỏ giới hạn chiều rộng khỏi thẻ <main> trong `layout.tsx`, khiến nội dung trang chủ tràn ra toàn màn hình.
-//
-// 2. GIẢI QUYẾT VẤN ĐỀ GÌ:
-//    - Thay thế thẻ `<main>` không hợp lệ bằng thẻ `<div>`.
-//    - Thêm một `div` bao bọc bên ngoài nội dung của trang chủ. Div này sẽ đóng vai trò là "container" cho trang.
-//    - Áp dụng các class quan trọng vào `div` này:
-//      - `max-w-[1280px] mx-auto`: Giới hạn chiều rộng và căn giữa, đảm bảo nội dung trang chủ thẳng hàng với Navbar và Footer.
-//      - `px-4 sm:px-6 lg:px-8`: Thêm padding ngang để nội dung không dính vào mép màn hình trên các thiết bị khác nhau.
-//      - `py-12`: Thêm padding dọc để tạo khoảng trống với Navbar và Footer.
-//
-// 3. LỢI ÍCH SO VỚI CÁCH CŨ:
-//    - Khắc phục lỗi hiển thị, đưa chiều rộng của nội dung về đúng như yêu cầu.
-//    - Duy trì cấu trúc layout linh hoạt: layout chung (`layout.tsx`) không áp đặt chiều rộng, cho phép các trang đặc biệt có thể có layout toàn màn hình nếu muốn. Chỉ các trang cần giới hạn (như trang chủ) mới tự thêm container.
-//    - Bố cục trang chủ giờ đây hoàn toàn nhất quán với thiết kế chung của ứng dụng.
+import { getHomePageData } from "@/lib/get-home-page-data";
+import Hero from "@/components/Hero";
+import Stats from "@/components/Stats";
+import WhyChooseUs from "@/components/WhyChooseUs";
+import ZigZagFeatures from "@/components/ZigZagFeatures";
+import Testimonials from "@/components/Testimonials";
+import CTA from "@/components/CTA";
+import { HomePageData } from "@/lib/definitions";
 
-export default function Page() {
+// --- GIẢI THÍCH THAY ĐỔI LỚN ---
+// 1. ASYNC COMPONENT: `Page` giờ là một `async function` để có thể `await` dữ liệu từ database.
+// 2. FETCH DỮ LIỆU: Nó gọi `getHomePageData()` để lấy toàn bộ nội dung động cho trang chủ.
+// 3. PASSING PROPS: Dữ liệu lấy được (ví dụ: `homeData.hero`, `homeData.stats`) được truyền xuống các component con tương ứng thông qua props.
+// 4. XỬ LÝ LỖI: Nếu không lấy được dữ liệu (`!homeData`), component sẽ hiển thị một thông báo lỗi thân thiện thay vì crash.
+
+export default async function Page() {
+  const homeData: HomePageData | null = await getHomePageData();
+
+  // Xử lý trường hợp không lấy được dữ liệu từ database
+  if (!homeData) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[60vh] text-center px-4">
+        <h1 className="text-4xl font-bold text-red-600 mb-4">Lỗi Tải Dữ Liệu</h1>
+        <p className="text-lg text-gray-700">
+          Rất tiếc, đã có lỗi xảy ra khi tải nội dung của trang. Vui lòng thử lại sau.
+        </p>
+      </div>
+    );
+  }
+
+  // Nếu có dữ liệu, render các component với props tương ứng
   return (
-    <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl md:text-6xl">
-        <span className="block">Chào mừng đến với</span>
-        <span className="block text-blue-600">EnglishMaster</span>
-      </h1>
-      <p className="mt-6 text-lg leading-8 text-gray-600 sm:text-xl">
-        Nâng cao kỹ năng tiếng Anh của bạn mỗi ngày thông qua các bài kiểm tra thú vị và đầy thử thách. Bắt đầu hành trình chinh phục ngôn ngữ ngay hôm nay!
-      </p>
-    </div>
+    <main>
+      <Hero data={homeData.hero} />
+      <Stats data={homeData.stats} />
+      <WhyChooseUs data={homeData.whyChooseUs} />
+      <ZigZagFeatures data={homeData.zigZagFeatures} />
+      <Testimonials data={homeData.testimonials} />
+      <CTA data={homeData.cta} />
+    </main>
   );
 }
