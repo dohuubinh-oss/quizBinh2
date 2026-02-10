@@ -266,3 +266,13 @@ Kiểm tra trạng thái đăng nhập: Trong Navbar.tsx hoặc bất kỳ compo
 Hoàn thiện logic authorize: Tạo schema người dùng với Mongoose, tạo một hàm kết nối Mongoose, và thay thế logic giả trong src/app/api/auth/[...nextauth]/route.ts bằng logic tra cứu người dùng và so sánh mật khẩu thực tế.
 Tạo trang đăng nhập: Tạo một trang/form đăng nhập để người dùng có thể nhập email và mật khẩu. Khi form được gửi, bạn sẽ gọi hàm signIn(\'credentials\', ...) của NextAuth.
 Bạn muốn tôi giúp bạn thực hiện bước tiếp theo, ví dụ như cập nhật Navbar để hiển thị trạng thái đăng nhập không?
+
+---
+
+### **3️⃣ Bảo toàn Giao diện & Trải nghiệm Người dùng (UI/UX)**
+
+*   **Cam kết 100%:** Tuyệt đối không thay đổi bất kỳ yếu tố nào thuộc về giao diện (HTML, CSS, hình ảnh, văn bản, icon...) mà bạn đã thiết kế.
+*   **Phạm vi công việc:** Mọi thay đổi sẽ chỉ tập trung vào phần logic (TypeScript/JavaScript, xử lý sự kiện, gọi API...) để thực hiện chức năng được yêu cầu.
+*   **Ngoại lệ:** Nếu việc thay đổi giao diện là **bắt buộc** để hoàn thành một tính năng, tôi phải trình bày rõ lý do, đề xuất phương án và **chỉ thực hiện khi nhận được sự đồng ý rõ ràng từ bạn.**
+
+---

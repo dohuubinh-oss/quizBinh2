@@ -2,9 +2,6 @@
 import type { Metadata } from "next";
 import { Noto_Sans, Lexend } from "next/font/google";
 import "./globals.css";
-import { getLayoutData } from "@/lib/get-layout-data";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 
 const noto_sans = Noto_Sans({
   subsets: ["latin"],
@@ -23,24 +20,17 @@ export const metadata: Metadata = {
   description: "A modern and engaging quiz application.",
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
-  const { navLinks, footerContent } = await getLayoutData();
-
   return (
     <html lang="en">
       <body
-        className={`${noto_sans.variable} ${lexend.variable} antialiased min-h-screen bg-background-light text-[#111418] transition-colors duration-300 flex flex-col`}
+        className={`${noto_sans.variable} ${lexend.variable} antialiased min-h-screen bg-background-light text-[#111418] transition-colors duration-300`}
       >
-        <Navbar navLinks={navLinks} />
-        <main className="flex-grow w-full">
-          {children}
-        </main>
-        <Footer footerContent={footerContent} />
+        {children}
       </body>
     </html>
   );
