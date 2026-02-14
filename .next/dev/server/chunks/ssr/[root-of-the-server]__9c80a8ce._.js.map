@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 18, "column": 0}, "map": {"version":3,"sources":["file:///home/user/quizbinh2/src/app/%28auth%29/login/page.tsx"],"sourcesContent":["\n\n\nexport default function AuthenticationPage() {\n  return (\n    <div className=\"mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]\">\n      <div className=\"flex flex-col space-y-2 text-center\">\n        <h1 className=\"text-2xl font-semibold tracking-tight\">\n          Welcome back\n        </h1>\n        <p className=\"text-sm text-muted-foreground\">\n          Enter your email below to sign in to your account\n        </p>\n      </div>\n    </div>\n  );\n}\n"],"names":[],"mappings":";;;;;;AAGe,SAAS;IACtB,qBACE,8OAAC;QAAI,WAAU;kBACb,cAAA,8OAAC;YAAI,WAAU;;8BACb,8OAAC;oBAAG,WAAU;8BAAwC;;;;;;8BAGtD,8OAAC;oBAAE,WAAU;8BAAgC;;;;;;;;;;;;;;;;;AAMrD"}}]
+}

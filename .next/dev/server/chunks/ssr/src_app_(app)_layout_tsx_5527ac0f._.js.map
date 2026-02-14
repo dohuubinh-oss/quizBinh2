@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///home/user/quizbinh2/src/app/%28app%29/layout.tsx"],"sourcesContent":["\nimport type { Metadata } from \"next\";\nimport { getLayoutData } from \"@/lib/get-layout-data\";\nimport Navbar from \"@/components/Navbar\";\nimport Footer from \"@/components/Footer\";\n\nexport const metadata: Metadata = {\n  title: \"Quiz App\",\n  description: \"A modern and engaging quiz application.\",\n};\n\nexport default async function AppLayout({\n  children,\n}: Readonly<{\n  children: React.ReactNode;\n}>) {\n\n  const { navLinks, footerContent } = await getLayoutData();\n\n  return (\n    <div className=\"flex flex-col min-h-screen\">\n      <Navbar navLinks={navLinks} />\n      <main className=\"flex-grow w-full\">\n        {children}\n      </main>\n      <Footer footerContent={footerContent} />\n    </div>\n  );\n}\n"],"names":[],"mappings":";;;;;;;AAEA;AACA;AACA;;;;;AAEO,MAAM,WAAqB;IAChC,OAAO;IACP,aAAa;AACf;AAEe,eAAe,UAAU,EACtC,QAAQ,EAGR;IAEA,MAAM,EAAE,QAAQ,EAAE,aAAa,EAAE,GAAG,MAAM,IAAA,oJAAa;IAEvD,qBACE,8OAAC;QAAI,WAAU;;0BACb,8OAAC,uIAAM;gBAAC,UAAU;;;;;;0BAClB,8OAAC;gBAAK,WAAU;0BACb;;;;;;0BAEH,8OAAC,uIAAM;gBAAC,eAAe;;;;;;;;;;;;AAG7B"}}]
+}
